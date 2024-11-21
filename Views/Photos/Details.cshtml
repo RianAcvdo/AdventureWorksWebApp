@@ -1,0 +1,72 @@
+﻿@model AdventureWorksWebApp.Models.Photo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Photo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhotoFile)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.PhotoFile)*@
+            <img src="data:image/png;base64,@Convert.ToBase64String(Model.PhotoFile)" height="200" class="img-thumbnail" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            <label>Created date</label>
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Name)
+        </dd>
+
+    </dl>
+    <h4>Comments</h4>
+
+</div>
+
+@foreach (var item in Model.Comment)
+{
+    <dl>
+        <dd>From: @item.User</dd>
+        <dd>Subject: @item.Subject</dd>
+        <dd>@item.Body</dd>
+        @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.CommentID }, new { })
+        <hr />
+    </dl>
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

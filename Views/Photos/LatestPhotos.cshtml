@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AdventureWorksWebApp.Models.Photo>
+
+@{
+    ViewBag.Title = "LatestPhotos";
+}
+
+<h2>LatestPhotos</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.PhotoFile)" class="card-img-top imagen-uniforme" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> Create date: @Html.DisplayFor(modelItem => item.CreatedDate)</li>
+                        <li class="list-group-item">Create by: @Html.DisplayFor(modelItem => item.User.Name)</li>
+                    </ul>
+                    <div class="card-body">
+                        @Html.ActionLink("Details", "Details", new { id = item.PhotoID })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PhotoID })
+                    </div>
+                </div><br />
+            </div>
+        }
+    </div>
+</div>

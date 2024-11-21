@@ -1,0 +1,17 @@
+﻿
+.imagen-contenedor {
+    width: 200px;
+    aspect-ratio: 16/9; /* Ajusta según la proporción deseada */
+}
+
+.imagen-uniforme {
+    width: 100%;
+    height: 150px;
+    object-fit: cover; /* Ajusta la imagen para cubrir todo el espacio, recortando si es necesario */
+}
+
+.carousel-imagen-uniforme {
+    width: 100%;
+    height: 700px;
+    object-fit: cover; /* Ajusta la imagen para cubrir todo el espacio, recortando si es necesario */
+}

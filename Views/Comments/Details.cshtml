@@ -1,0 +1,49 @@
+﻿@model AdventureWorksWebApp.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <img src="@Url.Content("~/Comments/GetImage/" + Model.PhotoID)" height="200" class="img-thumbnail" />
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User1.Name)
+        </dd>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+        }
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CommentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

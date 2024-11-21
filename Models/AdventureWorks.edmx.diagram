@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a82923dc0a274f38a3356b8f2c42f219" Name="Diagram1">
+        <EntityTypeShape EntityType="AdventureWorks_DBModel.Comment" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks_DBModel.Photo" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks_DBModel.User" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="AdventureWorks_DBModel.FK__Comment__PhotoID__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks_DBModel.FK__Comment__User__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks_DBModel.FK__Photo__Owner__0C85DE4D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
