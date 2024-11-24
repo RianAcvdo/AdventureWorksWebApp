@@ -1,0 +1,28 @@
+# See http://git-scm.com/docs/gitignore for more information
+
+# Django-specific:
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+*#
+# Compiled Python bytecode
+__pycache__/
+# IDE files
+.idea/
+.vscode/
+# Local configuration
+local.settings.json
+
+# Visual Studio for Mac solution and project user options
+*.suo
+*.user
+*.userprefs
+.vs/
+
+# Build output
+bin/
+obj/
+
+# Packages
+packages/
