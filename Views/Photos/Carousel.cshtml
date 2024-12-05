@@ -13,14 +13,20 @@
 
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.FirstOrDefault().PhotoFile)" class="d-block w-100 carousel-imagen-uniforme" alt="...">
-        </div>
-        @foreach (var item in Model.Skip(1))
+
+
+        @if (Model != null)
         {
-            <div class="carousel-item">
-                <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.PhotoFile)" class="d-block w-100 carousel-imagen-uniforme" alt="@item.Description">
+            <div class="carousel-item active">
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.FirstOrDefault().PhotoFile)" class="d-block w-100 carousel-imagen-uniforme" alt="...">
             </div>
+
+            foreach (var item in Model.Skip(1))
+            {
+                <div class="carousel-item">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.PhotoFile)" class="d-block w-100 carousel-imagen-uniforme" alt="@item.Description">
+                </div>
+            }
         }
 
     </div>
