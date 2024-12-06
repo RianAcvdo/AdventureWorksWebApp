@@ -62,6 +62,7 @@ namespace AdventureWorksWebApp.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "PhotoID,Title,PhotoFile,Description,CreatedDate,Owner")] Photo photo, HttpPostedFileBase imgFile)
         {
             if (ModelState.IsValid && imgFile != null)
@@ -78,6 +79,7 @@ namespace AdventureWorksWebApp.Controllers
             return View(photo);
         }
 
+        [Authorize]
         // GET: Photos/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -98,6 +100,7 @@ namespace AdventureWorksWebApp.Controllers
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PhotoID,Title,PhotoFile,Description,CreatedDate,Owner")] Photo photo)
         {
@@ -111,9 +114,10 @@ namespace AdventureWorksWebApp.Controllers
             return View(photo);
         }
 
-      
+
 
         // GET: Photos/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,6 +132,7 @@ namespace AdventureWorksWebApp.Controllers
             return View(photo);
         }
 
+        [Authorize]
         // POST: Photos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -141,6 +146,7 @@ namespace AdventureWorksWebApp.Controllers
 
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult SaveImagen(int? id, HttpPostedFileBase imgFile)
         {

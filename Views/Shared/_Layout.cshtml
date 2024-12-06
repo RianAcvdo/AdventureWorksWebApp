@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title - Photo Gallery</title>
 
 
     @Styles.Render("~/Content/css")
@@ -14,56 +14,75 @@
     <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
+<body class="inter-font">
 
-<body>
 
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            @Html.ActionLink("AdventureWorks", "LatestPhotos", "Photos", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Photos Unlimited", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li>@Html.ActionLink("Home", "LatestPhotos", "Photos", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("All Photos", "Index", "Photos", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Add a photo", "Create", "Photos", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Slideshow", "Carousel", "Photos", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Comments", "Index", "Comments", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Aboute", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
                 <div class="nav-item dropdown navbar-text" style="padding-right: 80px">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        User <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                        </svg>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-white">
-                        <li><a class="dropdown-item" href="#">Login</a></li>
-                        <li><a class="dropdown-item" href="#">Registrer</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                    </ul>
+
+                    @if (ViewBag.Username != null)
+                    {
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @ViewBag.Username <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                            </svg>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-white">
+                            <li><a class="dropdown-item" href='@Url.Action("Logout", "Account")'>Cerrar sesi&oacute;n</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Usuario Anónimo <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                            </svg>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-white">
+                            <li><a class="dropdown-item" href='@Url.Action("Login", "Account")'>Iniciar sesi&oacute;n</a></li>
+                            <li><a class="dropdown-item" href='@Url.Action("Register", "Account")'>Registarme</a></li>
+                        </ul>
+                    }
+
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
 
-    </div>
 
-    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <main class="flex-shrink-0">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="fixed-bottom text-center">
+        <div class="container p-4">
+            <p>&copy; @DateTime.Now.Year - Photo Gallery</p>
+        </div>
+    </footer>
+
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

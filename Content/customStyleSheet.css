@@ -15,3 +15,10 @@
     height: 700px;
     object-fit: cover; /* Ajusta la imagen para cubrir todo el espacio, recortando si es necesario */
 }
+
+.inter-font {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+}

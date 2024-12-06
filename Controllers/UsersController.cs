@@ -36,6 +36,7 @@ namespace AdventureWorksWebApp.Controllers
         }
 
         // GET: Users/Create
+
         public ActionResult Create()
         {
             return View();
@@ -44,6 +45,7 @@ namespace AdventureWorksWebApp.Controllers
         // POST: Users/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que quiere enlazarse. Para obtener 
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "User1,Name,Password")] User user)
