@@ -10,12 +10,16 @@ using System.Web.Mvc;
 using AdventureWorksWebApp.Models;
 using AdventureWorksWebApp.Models.ViewModels;
 using AdventureWorksWebApp.Utils;
+using log4net;
+using System.Security.Claims;
+using System.Web.Security;
 
 namespace AdventureWorksWebApp.Views
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(AccountController));
         private AdventureWorks_DBEntities db = new AdventureWorks_DBEntities();
 
         // GET: Account
@@ -50,12 +54,18 @@ namespace AdventureWorksWebApp.Views
                 {
                     bool passwordMatches = Utils.Utils.CheckIfPasswordMatches(model.Password, foundUser.Password);
 
+                    log.Debug("Password matches? " + passwordMatches);
+
                     if (!passwordMatches)
                     {
                         ViewBag.ErrorMessage = "El usuario o contraseña no son validos.";
                     }
+                    else
+                    {
+                        FormsAuthentication.SetAuthCookie(model.Username, true);
 
-                    return RedirectToLocal(returnUrl);
+                        return RedirectToLocal(returnUrl);
+                    }
                 }
             }
 
@@ -95,11 +105,22 @@ namespace AdventureWorksWebApp.Views
                 db.User.Add(user);
                 db.SaveChanges();
 
-                ViewBag.SuccessMessage = "Registro exitoso. Ya puedes iniciar sesión!";
+                ViewBag.SuccessMessage = "¡Tú cuenta ha sido creada exitosamente!";
                 
             }
 
             return View();
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.RemoveAll();
+
+            return View("Login");
         }
 
 

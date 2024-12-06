@@ -22,20 +22,20 @@
                     <div>
                         @Html.LabelFor(m => m.Username, new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
                         @*<label for="User" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario:</label>*@
-                        @Html.TextBoxFor(m => m.Username, new { @class = "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" })
+                        @Html.TextBoxFor(m => m.Username, new { @class = "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "Ingrese su usuario" })
                         @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-red-600" })
                     </div>
                     <div>
                         @Html.LabelFor(m => m.Password, new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })
-                        @Html.PasswordFor(m => m.Password, new { @class = "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", @placeholder = "••••••" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-red-600" })
                     </div>
 
 
                     if (ViewBag.ErrorMessage != null)
                     {
-                        <div class="p-4 mb-4 text-md text-red-600 rounded-lg bg-red-200 dark:bg-gray-800 dark:text-red-400 text-center" role="alert">
-                            <span class="font-medium">Error!</span> @ViewBag.ErrorMessage
+                        <div class="p-4 mb-4 text-sm text-red-500 rounded-xl bg-red-50 font-normal" role="alert">
+                            @ViewBag.ErrorMessage
                         </div>
                     }
 

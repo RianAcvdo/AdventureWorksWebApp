@@ -1,29 +1,20 @@
 ﻿using AdventureWorksWebApp.Models;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace AdventureWorksWebApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private AdventureWorks_DBEntities db = new AdventureWorks_DBEntities();
 
         public ActionResult Index()
         {
-            return View();
+            var photos = db.Photo.Take(4).OrderByDescending(p => p.CreatedDate).AsEnumerable();
+            
+            return View(photos);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
