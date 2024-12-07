@@ -17,6 +17,7 @@ namespace AdventureWorksWebApp.Controllers
             if (authHttpCookie != null)
             {
                 FormsAuthenticationTicket authenticationTicket = FormsAuthentication.Decrypt(authHttpCookie.Value);
+                
                 string username = authenticationTicket.Name;
 
                 ViewBag.Username = username ?? null;

@@ -4,69 +4,58 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Photo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+<div class="row m-2">
+    <h2>Photo Details</h2>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhotoFile)
-        </dt>
+    <div class="mb-4">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }, new { @class = "btn btn-warning"})
+        @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
+    </div>
 
-        <dd>
-            @*@Html.DisplayFor(model => model.PhotoFile)*@
-            <img src="data:image/png;base64,@Convert.ToBase64String(Model.PhotoFile)" height="200" class="img-thumbnail" />
-        </dd>
+    <div class="card">
+        <div class="card-body">
+            <div class="mb-2">
+                <span class="fw-bold">Title</span>
+                <p>@Html.DisplayFor(model => model.Title)</p>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <div class="mb-2">
+                <span class="fw-bold">Description</span>
+                <p>@Html.DisplayFor(model => model.Description)</p>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <div>
+                <span class="fw-bold">Photo file</span>
 
-        <dt>
-            <label>Created date</label>
-        </dt>
+                <figure class="figure col-12">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.PhotoFile)" width="850" height="850" class="figure-img img-fluid rounded" alt="photo - @Model.PhotoID">
+                </figure>
+            </div>
+        </div>
+        <!-- Comments section -->
+        <div class="mx-4 pt-2 pb-4">
+            <h4>Comments</h4>
+            @if (Model.Comment.Count > 0)
+            {
+                foreach (var item in Model.Comment)
+                {
+                    <dl>
+                        <dd>From: @item.User</dd>
+                        <dd>Subject: @item.Subject</dd>
+                        <dd>@item.Body</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
-
-    </dl>
-    <h4>Comments</h4>
-
+                        @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.CommentID }, new { })
+                    </dl>
+                }
+            }
+            else
+            {
+                <span class="text-muted">No comments has been added yet.</span>
+            }
+        </div>
+    </div>
+    
 </div>
 
-@foreach (var item in Model.Comment)
-{
-    <dl>
-        <dd>From: @item.User</dd>
-        <dd>Subject: @item.Subject</dd>
-        <dd>@item.Body</dd>
-        @Html.ActionLink("Delete", "Delete", "Comments", new { id = item.CommentID }, new { })
-        <hr />
-    </dl>
-}
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

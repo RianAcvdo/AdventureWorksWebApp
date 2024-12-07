@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdventureWorksWebApp.Models;
+using AdventureWorksWebApp.Utils;
+using log4net;
 
 namespace AdventureWorksWebApp.Controllers
 {
-    public class PhotosController : Controller
+    public class PhotosController : BaseController
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(PhotosController));
+
         private AdventureWorks_DBEntities db = new AdventureWorks_DBEntities();
 
         // GET: Photos
@@ -63,19 +68,34 @@ namespace AdventureWorksWebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "PhotoID,Title,PhotoFile,Description,CreatedDate,Owner")] Photo photo, HttpPostedFileBase imgFile)
+        public ActionResult Create([Bind(Include = "Title,PhotoFile,Description")] Photo photo, HttpPostedFileBase imgFile)
         {
             if (ModelState.IsValid && imgFile != null)
             {
+                if (imgFile.ContentLength > Constants.MAXIMUM_ALLOWED_FILE_UPLOAD)
+                {
+                    ViewBag.ErrorMessage = "Este archivo supera el tamaño máximo permitido de 4MB.";
+                    return View();
+                }
+
+                if (!Constants.ALLOWED_EXTENSIONS.Contains(Path.GetExtension(imgFile.FileName).ToLower()))
+                {
+                    ViewBag.ErrorMessage = "Formato de archivo inválido. Solo se permiten archivos con extensión .jpeg.";
+                    return View();
+                }
+
                 var imgByte = new byte[imgFile.ContentLength];
                 imgFile.InputStream.Read(imgByte, 0, imgFile.ContentLength);
                 photo.PhotoFile = imgByte;
+                photo.CreatedDate = DateTime.Today;
+                photo.Owner = User.Identity.Name;
+
                 db.Photo.Add(photo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
             }
 
-            ViewBag.Owner = new SelectList(db.User, "User1", "Name", photo.Owner);
             return View(photo);
         }
 

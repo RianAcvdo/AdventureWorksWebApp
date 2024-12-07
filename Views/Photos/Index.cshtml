@@ -4,33 +4,41 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<section class="mx-4">
+    <div class="mt-4 mb-4">
+        <h2 class="mb-4">Photos Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-sm-3">
-                <div class="card" style="width: 18rem;">
-                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.PhotoFile)" class="card-img-top imagen-uniforme" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"> Create date: @Html.DisplayFor(modelItem => item.CreatedDate)</li>
-                        <li class="list-group-item">Create by: @Html.DisplayFor(modelItem => item.User.Name)</li>
-                    </ul>
-                    <div class="card-body">
-                        @Html.ActionLink("Details", "Details", new { id = item.PhotoID })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.PhotoID })
-                    </div>
-                </div><br />
-            </div>
-        }
+        @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-primary" })
     </div>
-</div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+        @foreach(var item in Model)
+            {
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.PhotoFile)" class="card-img-top imagen-uniforme" alt="photo - @item.PhotoID">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@Html.DisplayFor(modelItem => item.Title)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                            <div>
+                                <p><strong>Created date:</strong> @Html.DisplayFor(modelItem => item.CreatedDate, "Date")</p>
+                                <p><strong>Created by:</strong> @Html.DisplayFor(modelItem => item.User.Name)</p>
+                            </div>
+
+                            <div>
+                                @Html.ActionLink("Details", "Details", new { id = item.PhotoID }, new { @class = "btn btn-outline-secondary" })
+
+                                <a href='@Url.Action("Delete", "Photos", new { id = item.PhotoID })' class="btn btn-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+    </div>
+</section>
+
