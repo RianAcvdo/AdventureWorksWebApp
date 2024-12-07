@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using AdventureWorksWebApp.Models;
+using AdventureWorksWebApp.Utils;
 
 namespace AdventureWorksWebApp.Controllers
 {
@@ -68,6 +70,7 @@ namespace AdventureWorksWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CommentID,User,Subject,Body,PhotoID")] Comment comment)
         {
+            comment.User =User.Identity.Name;
             if (ModelState.IsValid)
             {
                 db.Comment.Add(comment);
@@ -76,7 +79,6 @@ namespace AdventureWorksWebApp.Controllers
                 string mensaje = String.Format("../Photos/Details/{0}", comment.PhotoID);
                 return RedirectToAction(mensaje);
             }
-
             ViewBag.PhotoID = new SelectList(db.Photo, "PhotoID", "Title", comment.PhotoID);
             ViewBag.User = new SelectList(db.User, "User1", "Name", comment.User);
             return View(comment);
@@ -141,7 +143,8 @@ namespace AdventureWorksWebApp.Controllers
             Comment comment = db.Comment.Find(id);
             db.Comment.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            string mensaje = String.Format("../Photos");
+            return RedirectToAction(mensaje);
         }
 
 
