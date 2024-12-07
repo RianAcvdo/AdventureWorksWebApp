@@ -55,6 +55,8 @@
                 <span class="text-muted">No comments has been added yet.</span>
             }
         </div>
+        @Html.ActionLink("Add Comment", "NewComment", "Comments", new { id = Model.PhotoID }, new { @class = "btn btn-outline-secondary" })
+
     </div>
     
 </div>

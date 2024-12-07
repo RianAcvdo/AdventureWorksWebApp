@@ -36,6 +36,23 @@ namespace AdventureWorksWebApp.Controllers
             return View(comment);
         }
 
+        // GET: PhotosComments/New/5
+        public ActionResult NewComment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Photo photo = db.Photo.Find(id);
+            if (photo == null)
+            {
+                return HttpNotFound();
+            }
+            Comment comment = new Comment();
+            comment.PhotoID = photo.PhotoID;
+            return View(comment);
+        }
+
         // GET: Comments/Create
         public ActionResult Create()
         {
@@ -55,12 +72,15 @@ namespace AdventureWorksWebApp.Controllers
             {
                 db.Comment.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                /*return RedirectToAction("Index");*/
+                string mensaje = String.Format("../Photos/Details/{0}", comment.PhotoID);
+                return RedirectToAction(mensaje);
             }
 
             ViewBag.PhotoID = new SelectList(db.Photo, "PhotoID", "Title", comment.PhotoID);
             ViewBag.User = new SelectList(db.User, "User1", "Name", comment.User);
             return View(comment);
+            
         }
 
         // GET: Comments/Edit/5
