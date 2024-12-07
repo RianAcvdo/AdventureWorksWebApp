@@ -6,7 +6,7 @@
 
 .imagen-uniforme {
     width: 100%;
-    height: 150px;
+    height: 250px;
     object-fit: cover; /* Ajusta la imagen para cubrir todo el espacio, recortando si es necesario */
 }
 

@@ -39,7 +39,6 @@ namespace AdventureWorksWebApp.Views
         // POST: Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -79,7 +78,7 @@ namespace AdventureWorksWebApp.Views
             return View();
         }
 
-        // POST: Account/Login
+        // POST: Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -113,12 +112,25 @@ namespace AdventureWorksWebApp.Views
         }
 
 
-        [HttpGet]
+
+        [HttpPost]
         [Authorize]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            Session.RemoveAll();
+
+            // Clear anti-forgery token cookie
+            if (Request.Cookies["__RequestVerificationToken"] != null)
+            {
+                var cookie = new HttpCookie("__RequestVerificationToken");
+                cookie.Expires = DateTime.Now.AddDays(-1); // Set expiration to a past date
+                Response.Cookies.Add(cookie);
+            }
+
+            // Optionally clear session
+            Session.Clear();
+            Session.Abandon();
+
 
             return View("Login");
         }

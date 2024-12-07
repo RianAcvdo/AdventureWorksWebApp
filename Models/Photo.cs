@@ -11,7 +11,8 @@ namespace AdventureWorksWebApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Photo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,6 +25,7 @@ namespace AdventureWorksWebApp.Models
         public string Title { get; set; }
         public byte[] PhotoFile { get; set; }
         public string Description { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string Owner { get; set; }
     
