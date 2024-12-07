@@ -11,7 +11,7 @@ namespace AdventureWorksWebApp.Controllers
 
         public ActionResult Index()
         {
-            var photos = db.Photo.Take(4).OrderByDescending(p => p.CreatedDate).AsEnumerable();
+            var photos = db.Photo.AsNoTracking().Include("User").OrderByDescending(p => p.CreatedDate).Take(4).AsEnumerable();
             
             return View(photos);
         }

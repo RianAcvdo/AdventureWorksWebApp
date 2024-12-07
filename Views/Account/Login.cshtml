@@ -16,8 +16,7 @@
 
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "space-y-4 md:space-y-6" }))
                 {
-                    @Html.AntiForgeryToken()
-
+                   
 
                     <div>
                         @Html.LabelFor(m => m.Username, new { @class = "block mb-2 text-sm font-medium text-gray-900 dark:text-white" })

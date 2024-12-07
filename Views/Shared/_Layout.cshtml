@@ -45,7 +45,12 @@
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-white">
-                            <li><a class="dropdown-item" href='@Url.Action("Logout", "Account")'>Cerrar sesi&oacute;n</a></li>
+                            <li>
+                                @using (Html.BeginForm("Logout", "Account", FormMethod.Post))
+                                {
+                                    <a href="javascript:;" onclick="document.forms[0].submit();" class="dropdown-item">Cerrar sesi&oacute;n</a>
+                                }
+                            </li>
                         </ul>
                     }
                     else
@@ -76,7 +81,7 @@
         </div>
     </main>
 
-    <footer class="fixed-bottom text-center">
+    <footer class="text-center bottom-0 position-relative">
         <div class="container p-4">
             <p>&copy; @DateTime.Now.Year - Photo Gallery</p>
         </div>
