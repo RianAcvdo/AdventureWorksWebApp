@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using AdventureWorksWebApp.Models;
+using AdventureWorksWebApp.Utils;
 
 namespace AdventureWorksWebApp.Controllers
 {
@@ -36,6 +38,24 @@ namespace AdventureWorksWebApp.Controllers
             return View(comment);
         }
 
+        // GET: PhotosComments/New/5
+        public ActionResult NewComment(int? id)
+        {
+            ViewBag.Username = User.Identity.Name;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Photo photo = db.Photo.Find(id);
+            if (photo == null)
+            {
+                return HttpNotFound();
+            }
+            Comment comment = new Comment();
+            comment.PhotoID = photo.PhotoID;
+            return View(comment);
+        }
+
         // GET: Comments/Create
         public ActionResult Create()
         {
@@ -51,16 +71,19 @@ namespace AdventureWorksWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CommentID,User,Subject,Body,PhotoID")] Comment comment)
         {
+            comment.User =User.Identity.Name;
             if (ModelState.IsValid)
             {
                 db.Comment.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                /*return RedirectToAction("Index");*/
+                string mensaje = String.Format("../Photos/Details/{0}", comment.PhotoID);
+                return RedirectToAction(mensaje);
             }
-
             ViewBag.PhotoID = new SelectList(db.Photo, "PhotoID", "Title", comment.PhotoID);
             ViewBag.User = new SelectList(db.User, "User1", "Name", comment.User);
             return View(comment);
+            
         }
 
         // GET: Comments/Edit/5
@@ -101,6 +124,7 @@ namespace AdventureWorksWebApp.Controllers
         // GET: Comments/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Username = User.Identity.Name;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -121,7 +145,8 @@ namespace AdventureWorksWebApp.Controllers
             Comment comment = db.Comment.Find(id);
             db.Comment.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            string mensaje = String.Format("../Photos");
+            return RedirectToAction(mensaje);
         }
 
 
