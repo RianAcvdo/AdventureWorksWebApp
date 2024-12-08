@@ -4,8 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-
-
 <div class="row m-2">
     <h2>Photo Details</h2>
 
@@ -30,7 +28,7 @@
                 <span class="fw-bold">Photo file</span>
 
                 <figure class="figure col-12">
-                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.PhotoFile)" width="850" height="850" class="figure-img img-fluid rounded" alt="photo - @Model.PhotoID">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.PhotoFile)" class="img-thumbnail" alt="photo - @Model.PhotoID">
                 </figure>
             </div>
         </div>
