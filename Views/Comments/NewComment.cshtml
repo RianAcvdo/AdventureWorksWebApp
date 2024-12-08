@@ -19,7 +19,9 @@
             @Html.HiddenFor(model => model.PhotoID)
             <div class="form-horizontal">
                 <h4>Comment</h4>
-                <img src="@Url.Content("~/Comments/GetImage/" + Model.PhotoID)" height="200" class="img-thumbnail" alt="photo - @Model.PhotoID" />
+                <img src='@Url.Action("GetImage", "Comments", new { id = Model.PhotoID })' height="200" class="img-thumbnail" alt="photo - @Model.PhotoID" />
+
+
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

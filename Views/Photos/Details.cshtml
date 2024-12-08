@@ -8,7 +8,11 @@
     <h2>Photo Details</h2>
 
     <div class="mb-4">
-        @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }, new { @class = "btn btn-warning" })
+        @if (@ViewBag.Username != null && @ViewBag.Username == Model.User.Name)
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }, new { @class = "btn btn-warning" })
+        }
+
         @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
     </div>
 

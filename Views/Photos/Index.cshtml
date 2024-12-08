@@ -6,9 +6,12 @@
 
 <section class="mx-4">
     <div class="mt-4 mb-4">
-        <h2 class="mb-4">Photos Index</h2>
+        <h2 class="mb-4">All photos</h2>
+        @if (@ViewBag.Username != null)
+        {
+            @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-primary" })
+        }
 
-        @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-primary" })
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
