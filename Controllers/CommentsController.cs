@@ -41,6 +41,7 @@ namespace AdventureWorksWebApp.Controllers
         // GET: PhotosComments/New/5
         public ActionResult NewComment(int? id)
         {
+            ViewBag.Username = User.Identity.Name;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
