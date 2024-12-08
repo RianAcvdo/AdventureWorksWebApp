@@ -124,6 +124,7 @@ namespace AdventureWorksWebApp.Controllers
         // GET: Comments/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.Username = User.Identity.Name;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
