@@ -3,74 +3,79 @@
 @{
     ViewBag.Title = "Edit";
 }
+<section class="justify-content-center items-center align-content-center align-items-center">
+    <div class="card my-4 p-4" style="max-width: 1000px; min-width: 500px; display: block; width: 50%; margin: 0 auto;">
+        <h2>Edit photo</h2>
 
-<h2>Edit photo</h2>
+        <div class="row m-2">
+            <h2>Photo Details</h2>
 
-<div class="row m-2">
-    <h2>Photo Details</h2>
+            <div class="mb-4">
+                @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
+            </div>
 
-    <div class="mb-4">
-        @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoID }, new { @class = "btn btn-warning" })
-        @Html.ActionLink("Back to List", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.PhotoID)
-                @Html.HiddenFor(model => model.PhotoFile)
-                @Html.HiddenFor(model => model.CreatedDate)
-                @Html.HiddenFor(model => model.Owner)
+            <div class="card">
+                <div class="card-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.PhotoID)
+                        @Html.HiddenFor(model => model.PhotoFile)
+                        @Html.HiddenFor(model => model.CreatedDate)
+                        @Html.HiddenFor(model => model.Owner)
 
 
 
-                <div class="form-group mb-2">
-                    <span class="fw-bold">Photo Preview</span>
-                    <figure class="figure col-12">
-                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.PhotoFile)" width="850" height="850" class="figure-img img-fluid rounded" alt="photo - @Model.PhotoID">
-                    </figure>
+                        <div class="form-group mb-2">
+                            <span class="fw-bold">Photo Preview</span>
+                            <figure class="figure col-12">
+                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.PhotoFile)" width="850" height="850" class="figure-img img-fluid rounded" alt="photo - @Model.PhotoID">
+                            </figure>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", rows = "4", @required = "true" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @if (@ViewBag.Username != null && @ViewBag.Username == Model.User.Name)
+                                {
+                                    <input type="submit" value="Save" class="btn btn-success" />
+                                }
+
+
+                                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary " })
+                            </div>
+                        </div>
+                    }
                 </div>
+            </div>
 
-                <div class="form-group mb-4">
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group mb-4">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2 fw-bold" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        @if (@ViewBag.Username != null && @ViewBag.Username == Model.User.Name) { 
-                            <input type="submit" value="Save" class="btn btn-success" />
-                        }
-                            
-
-                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary " })
-                    </div>
-                </div>
-            }
         </div>
+
+
+        <div>
+
+        </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
     </div>
 
-</div>
-
-
-<div>
-    
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</section>
