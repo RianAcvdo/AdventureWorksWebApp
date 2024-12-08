@@ -44,7 +44,7 @@
                         <dd>From: @item.User</dd>
                         <dd>Subject: @item.Subject</dd>
                         <dd>@item.Body</dd>
-                        @if (@ViewBag.Username == @item.User)
+                        @if (@ViewBag.Username != null && @ViewBag.Username == @item.User)
                         {
                             <a href='@Url.Action("Delete", "Comments", new { id = item.CommentID })' class="btn btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -67,7 +67,7 @@
     </div>
 
 </div>
-@if (@ViewBag.Username != null)
+@if (@ViewBag.Username != null && @ViewBag.Username != null)
 {
     @Html.ActionLink("Add a comment", "NewComment", "Comments", new { id = Model.PhotoID }, new { @class = "btn btn-outline-secondary" })
 
